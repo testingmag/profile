@@ -43,15 +43,65 @@
     pointer-events: none; z-index: 9999; opacity: 0.6;
   }
 
+  /* ── AVAILABILITY BANNER ── */
+  .avail-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+    background: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.9rem;
+    padding: 0.55rem 2.5rem;
+    overflow: hidden;
+  }
+  .avail-bar::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg,rgba(201,168,76,0.07) 0px,rgba(201,168,76,0.07) 1px,transparent 1px,transparent 40px);
+    pointer-events: none;
+  }
+  .avail-pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4ade80; flex-shrink: 0;
+    animation: pulse-ring 1.6s ease-out infinite;
+  }
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.7); }
+    70%  { box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+    100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  }
+  .avail-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(255,255,255,0.85);
+  }
+  .avail-text strong { color: var(--gold-light); font-weight: 500; }
+  .avail-badge {
+    padding: 0.18rem 0.8rem;
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    background: rgba(201,168,76,0.1);
+  }
+  .avail-close {
+    position: absolute; right: 1.2rem;
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.4); font-size: 1.1rem; line-height: 1;
+    padding: 0.2rem 0.5rem; transition: color 0.2s;
+  }
+  .avail-close:hover { color: #fff; }
+  .avail-bar.hidden { display: none; }
+
   /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 34px; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.4rem 3rem;
     background: rgba(245,240,232,0.88);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--rule);
+    transition: top 0.3s ease;
   }
+  nav.bar-hidden { top: 0; }
   .nav-logo {
     font-family: 'DM Mono', monospace;
     font-size: 0.78rem; letter-spacing: 0.18em;
@@ -64,6 +114,24 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--gold); }
+
+  /* ── OPEN TO WORK BADGE ── */
+  .hero-otw {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    background: rgba(74,222,128,0.15);
+    border: 1px solid rgba(74,222,128,0.4);
+    color: #4ade80;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.4rem;
+    opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+  }
+  .otw-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4ade80; flex-shrink: 0;
+    animation: pulse-ring 1.6s ease-out infinite;
+  }
 
   /* ── HERO ── */
   .hero {
@@ -202,6 +270,58 @@
     font-size: 1.1rem; margin-bottom: 0.5rem;
   }
   .highlight-card p { font-size: 0.88rem; color: var(--mid); line-height: 1.6; }
+  
+  /* ── DOMAINS ── */
+    #domains {
+      background: linear-gradient(135deg, var(--teal) 0%, #0d3d45 100%);
+      text-align: center;
+    }
+    #domains .section-title { color: #fff; }
+    .domains-grid {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 1.2rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .domain-pill {
+      padding: 0.8rem 2rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.85rem; letter-spacing: 0.06em;
+      cursor: default;
+      transition: all 0.25s;
+    }
+    .domain-pill:hover {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+
+
+  /* ── SKILLS ── */
+  #skills { max-width: 1200px; margin: 0 auto; }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+  .skill-group {
+    background: #fff; border: 1px solid var(--rule);
+    padding: 2rem;
+    transition: box-shadow 0.25s;
+  }
+  .skill-group:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.18em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.78rem; color: var(--teal);
+    background: var(--teal-light);
+    letter-spacing: 0.04em;
+  }
 
   /* ── EXPERIENCE ── */
   #experience { background: var(--ink); }
@@ -258,56 +378,6 @@
     color: var(--gold);
   }
 
-  /* ── SKILLS ── */
-  #skills { max-width: 1200px; margin: 0 auto; }
-  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
-  .skill-group {
-    background: #fff; border: 1px solid var(--rule);
-    padding: 2rem;
-    transition: box-shadow 0.25s;
-  }
-  .skill-group:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
-  .skill-group-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem; letter-spacing: 0.18em;
-    color: var(--gold); text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--rule);
-  }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .skill-tag {
-    padding: 0.35rem 0.85rem;
-    font-size: 0.78rem; color: var(--teal);
-    background: var(--teal-light);
-    letter-spacing: 0.04em;
-  }
-
-  /* ── DOMAINS ── */
-  #domains {
-    background: linear-gradient(135deg, var(--teal) 0%, #0d3d45 100%);
-    text-align: center;
-  }
-  #domains .section-title { color: #fff; }
-  .domains-grid {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 1.2rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;
-  }
-  .domain-pill {
-    padding: 0.8rem 2rem;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(201,168,76,0.4);
-    color: rgba(255,255,255,0.85);
-    font-size: 0.85rem; letter-spacing: 0.06em;
-    cursor: default;
-    transition: all 0.25s;
-  }
-  .domain-pill:hover {
-    background: var(--gold);
-    color: var(--ink);
-    border-color: var(--gold);
-    transform: translateY(-3px);
-  }
 
   /* ── CERTIFICATIONS ── */
   #certs { max-width: 900px; margin: 0 auto; }
@@ -411,6 +481,14 @@
 </head>
 <body>
 
+<!-- AVAILABILITY BANNER -->
+<div class="avail-bar" id="availBar">
+  <span class="avail-pulse"></span>
+  <span class="avail-text"><strong>Open to Opportunities</strong> &mdash; Available for Senior QA / QA Manager roles globally</span>
+  <span class="avail-badge">Actively Looking</span>
+  <button class="avail-close" onclick="document.getElementById('availBar').classList.add('hidden');document.querySelector('nav').classList.add('bar-hidden');" aria-label="Dismiss">&times;</button>
+</div>
+
 <!-- NAV -->
 <nav>
   <span class="nav-logo">GSN · Portfolio</span>
@@ -427,6 +505,10 @@
 <section class="hero" id="home">
   <div class="hero-left">
     <div class="hero-label">Senior QA Leader · 19+ Years</div>
+    <div class="hero-otw">
+      <span class="otw-dot"></span>
+      <span>Open to Work</span>
+    </div>
     <h1 class="hero-name">Goutham<br><span>Shivakumar</span> N</h1>
     <p class="hero-role">Driving quality engineering at enterprise scale — from strategy to release.</p>
     <div class="hero-cta">
@@ -486,6 +568,111 @@
     <div class="highlight-card reveal">
       <h4>🌍 Global Delivery (UK &amp; Dubai Onsite)</h4>
       <p>Served as onsite lead at Schroders, Equifax, and Provident Financial Group across London and Bradford; delivered 7+ major milestones with strong client satisfaction.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- DOMAINS -->
+<section id="domains">
+  <span class="section-tag" style="color:var(--gold-light)">// Domain Expertise</span>
+  <h2 class="section-title">Industries &amp;<br>Verticals</h2>
+  <div class="section-rule" style="margin:1.5rem auto"></div>
+  <div class="domains-grid">
+    <div class="domain-pill">🚚 Logistics &amp; WMS</div>
+    <div class="domain-pill">💰 FinTech &amp; Investment Management</div>
+    <div class="domain-pill">🔍 AML &amp; Compliance</div>
+    <div class="domain-pill">🏥 Insurance &amp; Annuities</div>
+    <div class="domain-pill">🛒 Consumer &amp; Retail</div>
+    <div class="domain-pill">🏦 Financial Services</div>
+    <div class="domain-pill">🏠 Home Credit</div>
+    <div class="domain-pill">⚙️ ERP (Pegasus)</div>
+    <div class="domain-pill">📱 Mobile (iOS &amp; Android)</div>
+    <div class="domain-pill">☁️ Cloud &amp; IoT</div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section>
+  <div id="skills">
+    <span class="section-tag">// Technical Arsenal</span>
+    <h2 class="section-title">Skills &amp;<br>Technologies</h2>
+    <div class="section-rule"></div>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Automation Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Selenium WebDriver</span>
+          <span class="skill-tag">Appium</span>
+          <span class="skill-tag">RestAssured</span>
+          <span class="skill-tag">Gauge</span>
+          <span class="skill-tag">SoapUI</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">TestNG</span>
+		  <span class="skill-tag">Cuccumber</span>
+		  <span class="skill-tag">Velocity Templates</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Performance Testing</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Apache JMeter</span>
+          <span class="skill-tag">Gatling</span>
+          <span class="skill-tag">Load Testing</span>
+          <span class="skill-tag">Stress Testing</span>
+          <span class="skill-tag">NFT Strategy</span>
+		  <span class="skill-tag">POSTMAN</span>
+          <span class="skill-tag">OAT</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">API &amp; DB Testing</div>
+        <div class="skill-tags">
+          <span class="skill-tag">RESTful APIs</span>
+          <span class="skill-tag">SOAP / WSDL</span>
+		  <span class="skill-tag">POSTMAN</span>
+		  <span class="skill-tag">RestAssured</span>
+          <span class="skill-tag">MS SQL Server</span>
+          <span class="skill-tag">Sybase</span>
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">Azure APIs</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Test Management</div>
+        <div class="skill-tags">
+          <span class="skill-tag">JIRA</span>
+          <span class="skill-tag">Azure DevOps</span>
+          <span class="skill-tag">HP ALM</span>
+          <span class="skill-tag">MTM</span>
+          <span class="skill-tag">Zephyr</span>
+          <span class="skill-tag">XRay</span>
+          <span class="skill-tag">Confluence</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Methodologies</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Agile / Scrum</span>
+          <span class="skill-tag">Kanban</span>
+          <span class="skill-tag">Risk-Based Testing</span>
+          <span class="skill-tag">Shift-Left</span>
+          <span class="skill-tag">V-Model</span>
+          <span class="skill-tag">TDD</span>
+		  <span class="skill-tag">BDD</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Asset &amp; Investment Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Charles River</span>
+          <span class="skill-tag">SimCorp Dimension</span>
+          <span class="skill-tag">Intellimatch</span>
+          <span class="skill-tag">B-One</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -585,109 +772,6 @@
   </div>
 </section>
 
-<!-- SKILLS -->
-<section>
-  <div id="skills">
-    <span class="section-tag">// Technical Arsenal</span>
-    <h2 class="section-title">Skills &amp;<br>Technologies</h2>
-    <div class="section-rule"></div>
-
-    <div class="skills-grid">
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Automation Frameworks</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Selenium WebDriver</span>
-          <span class="skill-tag">Appium</span>
-          <span class="skill-tag">RestAssured</span>
-          <span class="skill-tag">Gauge</span>
-          <span class="skill-tag">SoapUI</span>
-          <span class="skill-tag">Postman</span>
-          <span class="skill-tag">TestNG</span>
-		  <span class="skill-tag">Cuccumber</span>
-		  <span class="skill-tag">Velocity Templates</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Performance Testing</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Apache JMeter</span>
-          <span class="skill-tag">Gatling</span>
-          <span class="skill-tag">Load Testing</span>
-          <span class="skill-tag">Stress Testing</span>
-          <span class="skill-tag">NFT Strategy</span>
-		  <span class="skill-tag">POSTMAN</span>
-          <span class="skill-tag">OAT</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">API &amp; DB Testing</div>
-        <div class="skill-tags">
-          <span class="skill-tag">RESTful APIs</span>
-          <span class="skill-tag">SOAP / WSDL</span>
-		  <span class="skill-tag">POSTMAN</span>
-		  <span class="skill-tag">RestAssured</span>
-          <span class="skill-tag">MS SQL Server</span>
-          <span class="skill-tag">Sybase</span>
-          <span class="skill-tag">MongoDB</span>
-          <span class="skill-tag">Azure APIs</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Test Management</div>
-        <div class="skill-tags">
-          <span class="skill-tag">JIRA</span>
-          <span class="skill-tag">Azure DevOps</span>
-          <span class="skill-tag">HP ALM</span>
-          <span class="skill-tag">MTM</span>
-          <span class="skill-tag">Zephyr</span>
-          <span class="skill-tag">XRay</span>
-          <span class="skill-tag">Confluence</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Methodologies</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Agile / Scrum</span>
-          <span class="skill-tag">Kanban</span>
-          <span class="skill-tag">Risk-Based Testing</span>
-          <span class="skill-tag">Shift-Left</span>
-          <span class="skill-tag">V-Model</span>
-          <span class="skill-tag">TDD</span>
-		  <span class="skill-tag">BDD</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Asset &amp; Investment Tools</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Charles River</span>
-          <span class="skill-tag">SimCorp Dimension</span>
-          <span class="skill-tag">Intellimatch</span>
-          <span class="skill-tag">B-One</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DOMAINS -->
-<section id="domains">
-  <span class="section-tag" style="color:var(--gold-light)">// Domain Expertise</span>
-  <h2 class="section-title">Industries &amp;<br>Verticals</h2>
-  <div class="section-rule" style="margin:1.5rem auto"></div>
-  <div class="domains-grid">
-    <div class="domain-pill">🚚 Logistics &amp; WMS</div>
-    <div class="domain-pill">💰 FinTech &amp; Investment Management</div>
-    <div class="domain-pill">🔍 AML &amp; Compliance</div>
-    <div class="domain-pill">🏥 Insurance &amp; Annuities</div>
-    <div class="domain-pill">🛒 Consumer &amp; Retail</div>
-    <div class="domain-pill">🏦 Financial Services</div>
-    <div class="domain-pill">🏠 Home Credit</div>
-    <div class="domain-pill">⚙️ ERP (Pegasus)</div>
-    <div class="domain-pill">📱 Mobile (iOS &amp; Android)</div>
-    <div class="domain-pill">☁️ Cloud &amp; IoT</div>
-  </div>
-</section>
-
 <!-- CERTIFICATIONS -->
 <section style="max-width:900px; margin:0 auto; padding:7rem 3rem;">
   <span class="section-tag">// Credentials</span>
@@ -759,7 +843,7 @@
     </a>
 	<a class="contact-link" href="https://ngoutham05.github.io/profile/" target="_blank" rel="noopener">
 	      <span class="contact-link-icon">git</span>
-	      /ngoutham05
+	      /testingmag
 	    </a>
 	
     <a class="contact-link" href="#">
